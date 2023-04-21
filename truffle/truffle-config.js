@@ -42,9 +42,9 @@
  */
 
 require('dotenv').config();
-const { HOST, PORT, DEPLOY_FROM_ADDR } = process.env;
+const { HOST, PORT, DEPLOY_FROM_ADDR, MNEMONIC, GOERLI_MNEMONIC, GOERLI_MNEMONIC } = process.env;
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
   /**
@@ -69,7 +69,15 @@ module.exports = {
       host: HOST,     // Localhost (default: none)
       port: PORT,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
-      from: DEPLOY_FROM_ADDR
+      from: DEPLOY_FROM_ADDR,
+      provider: () => new HDWalletProvider(MNEMONIC, `http://${HOST}:${PORT}`),
+    },
+    goerli: {
+      provider: () => new HDWalletProvider(GOERLI_MNEMONIC, `https://goerli.infura.io/v3/${GOERLI_PROJECT_ID}`),
+      network_id: 5,       // Goerli's id
+      confirmations: 2,    // # of confirmations to wait between deployments. (default: 0)
+      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
     },
     //
     // An additional network, but with some advanced options…

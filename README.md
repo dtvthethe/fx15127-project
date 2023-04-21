@@ -9,6 +9,10 @@ truffle migrate
 truffle deploy
 ```
 
+3. To deploy on Goerli network
+- regist account and login: https://infura.io
+- creat project and get project id at: settings/endpoints > Ethereum > goerli
+
 # React
 ```
 yarn install
