@@ -6,17 +6,17 @@ import { URL } from '../../common/constant';
 export default function Menu() {
   return (
     <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-      <div className="position-sticky pt-3 sidebar-sticky">
+      <div className="position-sticky pt-0 sidebar-sticky">
         <ul className="nav flex-column">
           <li className="nav-item">
             <p className="px-3">
-              <Users width={18} height={18} />
+              <Users width={18} height={18} className="mt--3" />
               <NavLink to={URL.admin.participant.list} className="align-middle px-1 text-decoration-none text-dark">Participants</NavLink>
             </p>
           </li>
           <li className="nav-item">
             <p className="px-3">
-              <Package width={18} height={18} />
+              <Package width={18} height={18} className="mt--3" />
               <NavLink to={URL.admin.session.list} className="align-middle px-1 text-decoration-none text-dark">Sessions</NavLink>
             </p>
           </li>

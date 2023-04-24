@@ -1,13 +1,23 @@
 export const URL = {
-    client: {
+    user: {
+        session : {
+            onTime: '/on-time',
+            closed: '/closed',
+            detail: '/:sessionType/:id',
+        }
     },
     admin: {
         participant: {
-            list: '/participants',
+            list: '/admin/participants',
         },
         session : {
-            list: '/sessions',
-            create: '/sessions/create'
+            list: '/admin/sessions',
+            create: '/admin/sessions/create'
         }
     }
+}
+
+
+const detailUrlStr = (sessionType, id) => {
+    return /:sessionType/:id
 }

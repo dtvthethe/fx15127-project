@@ -6,7 +6,7 @@ import { ChevronLeft, Lock, Save } from 'react-feather';
 import SubmitPriceFrm from './SubmitPriceFrm';
 
 
-export default function Create() {
+export default function Detail() {
   const menuItems = [
     {
       title: 'Session List',

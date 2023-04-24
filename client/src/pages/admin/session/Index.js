@@ -15,7 +15,7 @@ export default function Index() {
 
   return (
     <>
-      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
+      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-0">
         <h1 className="h2">Session List</h1>
         <div className="btn-toolbar mb-2 mb-md-0">
         </div>
@@ -40,15 +40,15 @@ export default function Index() {
             <input type="date" className="form-control form-control-sm" />
           </div>
           <div className="col d-flex justify-content-center">
-            <button type="submit" className="btn btn-sm btn-outline-info">
+            <button type="submit" className="btn btn-sm btn-outline-dark">
               <Search width={14} height={14} className='mt--3' />
               Search
             </button>
           </div>
         </form>
       </div>
-      <Link to={URL.admin.session.create} className='btn btn-sm btn-outline-secondary'>
-        <Plus width={18} height={18} />
+      <Link to={URL.admin.session.create} className='btn btn-sm btn-outline-dark'>
+        <Plus className='mt--3' width={18} height={18} />
         Create new Session
       </Link>
       <div className="table-responsive">
