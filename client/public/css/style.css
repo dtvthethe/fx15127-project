@@ -34,3 +34,38 @@ p:has(a.active) {
         no-repeat;
     z-index: 10000;
 }
+
+.user-menu {
+    margin-left: 20px;
+}
+
+.user-menu .active {
+    color: var(--bs-nav-link-color) !important;
+}
+
+.user-menu .nav-item {
+    padding: 5px 0px;
+    margin-right: 10px
+}
+
+.user-menu .nav-item a {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    background-color: none;
+    color: #701D1D !important;
+    border-radius: 15px;
+    padding: 3px 6px;
+    border: 1px solid #701D1D;
+}
+
+/* .user-menu .nav-item:last-child a {
+    border-right: none;
+} */
+
+.user-menu .nav-item a.active {
+    background-color: #701D1D;
+    color: #fff !important;
+}
+
+
+

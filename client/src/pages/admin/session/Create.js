@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { URL } from '../../../common/constant';
 import AdminBreadCrumb from '../../../components/tiny/AdminBreadCrumb';
 import { Link } from 'react-router-dom';
+import { ChevronLeft, Lock, Save } from 'react-feather';
+import SubmitPriceFrm from './SubmitPriceFrm';
+
 
 export default function Create() {
   const menuItems = [
@@ -15,19 +18,25 @@ export default function Create() {
     },
   ];
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
-      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
+      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-0">
         <h1 className="h2">Initiate A Pricing Session</h1>
         <div className="btn-toolbar mb-2 mb-md-0">
         </div>
       </div>
       <AdminBreadCrumb items={menuItems} />
-      <form className='mx-auto col-10 col-md-8 col-lg-6'>
+      <form className='mx-auto col-10 col-md-8 col-lg-6 mt-5'>
         <div className="form-group row mb-4">
           <label className="col-sm-3 col-form-label">Product Images:</label>
           <div className="col-sm-9">
-            <input class="form-control form-control-sm" id="formFileSm" type="file"></input>
+            <input className="form-control form-control-sm" id="formFileSm" type="file"></input>
           </div>
         </div>
         <div className="form-group row mb-4">
@@ -45,7 +54,7 @@ export default function Create() {
         <div className="form-group row mb-4">
           <label className="col-sm-3 col-form-label">Product Description:</label>
           <div className="col-sm-9">
-            <input type="text" className="form-control form-control-sm" />
+            <textarea className="form-control form-control-sm" rows="3"></textarea>
           </div>
         </div>
         <div className="form-group row mb-4">
@@ -66,11 +75,22 @@ export default function Create() {
         </div>
         <div className="form-group row mb-4">
           <div className="col d-flex justify-content-center">
-            <Link to={URL.admin.session.list} className="btn btn-light btn-sm mx-2 px-4">Back</Link>
-            <button type="button" className="btn btn-success btn-sm mx-2 px-4">Submit</button>
+            <Link to={URL.admin.session.list} className="btn btn-outline-dark btn-sm mx-2 px-4">
+              <ChevronLeft className='mt--3' width={18} height={18} />
+              Back
+            </Link>
+            <button type="button" className="btn btn-success btn-sm mx-2 px-4">
+              <Save className='mt--3' width={18} height={18} />
+              Submit
+            </button>
+            <button type="button" className="btn btn-warning btn-sm mx-2 px-4" onClick={toggleModal}>
+              <Lock className='mt--3' width={18} height={18} />
+              Close this Session
+            </button>
           </div>
         </div>
       </form>
+      {isOpen && <SubmitPriceFrm toggleModal={toggleModal} /> }
     </>
   );
 }

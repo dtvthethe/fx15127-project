@@ -1,51 +1,14 @@
 import React from 'react';
-import { toast } from 'react-toastify';
-import AdminBreadCrumb from '../../../components/tiny/AdminBreadCrumb';
-import Paginate from '../../../components/tiny/Paginate';
-import { Search } from 'react-feather';
+import { URL, detailUrlStr } from '../../../common/constant';
+import { Link } from 'react-router-dom';
 
-export default function Index() {
-  const notify = () => toast("🦄Wow so easy!");
-  const menuItems = [
-    {
-      title: 'Participant List',
-      to: null
-    },
-  ];
-
+export default function Closed() {
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-0">
-        <h1 className="h2">Participants List</h1>
+        <h1 className="h2">Session closed List</h1>
         <div className="btn-toolbar mb-2 mb-md-0">
         </div>
-      </div>
-      <AdminBreadCrumb items={menuItems} />
-      <div className='frm-table-editor'>
-        <form className="row">
-          <div className="col input-group input-group-sm">
-            <label className="control-label pt-1 lb-search-input">Full name: </label>
-            <input type="search" className="form-control form-control-sm" />
-          </div>
-          <div className="col input-group input-group-sm">
-            <label className="control-label pt-1 lb-search-input">Email: </label>
-            <input type="search" className="form-control form-control-sm" />
-          </div>
-          <div className="col input-group input-group-sm">
-            <label className="control-label pt-1 lb-search-input">Gender: </label>
-            <select className="form-select form-select-sm">
-              <option value="">---</option>
-              <option value={0}>Female</option>
-              <option value={1}>Male</option>
-            </select>
-          </div>
-          <div className="col d-flex justify-content-center">
-            <button type="submit" className="btn btn-sm btn-outline-dark">
-              <Search width={14} height={14} className='mt--3' />
-              Search
-            </button>
-          </div>
-        </form>
       </div>
       <div className="table-responsive">
         <table className="table table-striped table-sm">
@@ -61,7 +24,9 @@ export default function Index() {
           <tbody>
             <tr>
               <td>1,001</td>
-              <td>random</td>
+              <td>
+                <Link to={detailUrlStr(URL.user.session.closed, 2)}>random</Link>
+              </td>
               <td>data</td>
               <td>placeholder</td>
               <td>text</td>
@@ -174,9 +139,6 @@ export default function Index() {
           </tbody>
         </table>
       </div>
-      <Paginate currentPage={3} />
     </>
   );
 }
-
-
