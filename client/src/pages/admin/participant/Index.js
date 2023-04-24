@@ -9,10 +9,6 @@ export default function Index() {
   const menuItems = [
     {
       title: 'Participant List',
-      to: '/participants'
-    },
-    {
-      title: 'Initiate A Pricing Session',
       to: null
     },
   ];
@@ -29,11 +25,11 @@ export default function Index() {
         <form className="row">
           <div className="col input-group input-group-sm">
             <label className="control-label pt-1 lb-search-input">Full name: </label>
-            <input type="search" className="form-control input-sm" />
+            <input type="search" className="form-control form-control-sm" />
           </div>
           <div className="col input-group input-group-sm">
             <label className="control-label pt-1 lb-search-input">Email: </label>
-            <input type="search" className="form-control input-sm" />
+            <input type="search" className="form-control form-control-sm" />
           </div>
           <div className="col input-group input-group-sm">
             <label className="control-label pt-1 lb-search-input">Gender: </label>
