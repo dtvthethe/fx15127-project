@@ -34,11 +34,3 @@ p:has(a.active) {
         no-repeat;
     z-index: 10000;
 }
-
-
-.awfw {
-    background-color: red;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-}
