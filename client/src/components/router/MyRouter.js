@@ -11,6 +11,7 @@ import UserLayout from '../layout/UserLayout';
 import SessionOnTime from '../../pages/user/session/OnTime';
 import SessionClosed from '../../pages/user/session/Closed';
 import ClientLayout from '../layout/ClientLayout';
+import Detail from '../../pages/user/session/Detail';
 
 
 export default function MyRouter() {
@@ -24,7 +25,8 @@ export default function MyRouter() {
       <Route path="/" element={<UserLayout />}>
         <Route path={URL.user.session.onTime} element={<SessionOnTime />} />
         <Route path={URL.user.session.closed} element={<SessionClosed />} />
-        <Route path={URL.user.session.closed} element={<SessionClosed />} />
+        <Route path={URL.user.session.onTimeDetail} element={<Detail />} />
+        <Route path={URL.user.session.closedDetail} element={<Detail />} />
       </Route>
       <Route path="/" element={<ClientLayout />}>
         <Route index element={<Default />} />

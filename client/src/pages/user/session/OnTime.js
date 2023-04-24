@@ -1,6 +1,10 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { URL, detailUrlStr } from '../../../common/constant';
 
 export default function OnTime() {
+  const {page} = useParams();
+
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-0">
@@ -22,7 +26,9 @@ export default function OnTime() {
           <tbody>
             <tr>
               <td>1,001</td>
-              <td>random</td>
+              <td>
+                <Link to={detailUrlStr(URL.user.session.onTime, 6)}>random</Link>
+                </td>
               <td>data</td>
               <td>placeholder</td>
               <td>text</td>

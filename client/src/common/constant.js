@@ -3,7 +3,8 @@ export const URL = {
         session : {
             onTime: '/on-time',
             closed: '/closed',
-            detail: '/:sessionType/:id',
+            onTimeDetail: '/on-time/:id',
+            closedDetail: '/closed/:id',
         }
     },
     admin: {
@@ -15,9 +16,15 @@ export const URL = {
             create: '/admin/sessions/create'
         }
     }
-}
+};
 
-
-const detailUrlStr = (sessionType, id) => {
-    return /:sessionType/:id
-}
+export const detailUrlStr = (page, id) => {
+    switch (page) {
+        case URL.user.session.onTime:
+            return URL.user.session.onTimeDetail.replace(':id', id);
+        case URL.user.session.closed:
+            return URL.user.session.closedDetail.replace(':id', id);
+        default:
+            return '/';
+    }
+};

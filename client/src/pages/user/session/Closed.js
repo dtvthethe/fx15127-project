@@ -1,4 +1,6 @@
 import React from 'react';
+import { URL, detailUrlStr } from '../../../common/constant';
+import { Link } from 'react-router-dom';
 
 export default function Closed() {
   return (
@@ -22,7 +24,9 @@ export default function Closed() {
           <tbody>
             <tr>
               <td>1,001</td>
-              <td>random</td>
+              <td>
+                <Link to={detailUrlStr(URL.user.session.closed, 2)}>random</Link>
+              </td>
               <td>data</td>
               <td>placeholder</td>
               <td>text</td>
