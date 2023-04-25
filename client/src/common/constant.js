@@ -1,3 +1,5 @@
+export const networkHex = ['0x1', '0x5', '0x539'];
+
 export const URL = {
     user: {
         session : {

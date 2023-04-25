@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Gitlab } from "react-feather";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { NavLink } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+import { signIn, getAccount } from '../../common/MetaMask';
 
 export default function Header() {
+  useEffect(() => {
+    handleAccountAuth();
+  }, []);
+
+  const metaMaskAuth = async () => {
+    const resultSignIn = await signIn();
+
+    if (!resultSignIn.isSuccess && resultSignIn?.data?.message) {
+      toast(resultSignIn.data.message);
+    }
+  }
+
+  const handleAccountAuth = async () => {
+    const resultGetAccount = await getAccount();
+
+    if (!resultGetAccount.isSuccess && resultGetAccount?.data?.message) {
+      toast(resultGetAccount.data.message);
+    }
+  }
+
   return (
     <>
       <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -16,7 +37,7 @@ export default function Header() {
         </div>
         <div className="navbar-nav">
           <div className="nav-item text-nowrap">
-            <button className="nav-link px-3 text-white">
+            <button className="nav-link px-3 text-white" onClick={metaMaskAuth}>
               <Gitlab width={18} height={18} />
               <span className="align-middle px-1">Sign in</span>
             </button>
