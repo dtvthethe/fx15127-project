@@ -1,13 +1,30 @@
-import React, { useEffect } from 'react';
-import { Gitlab } from "react-feather";
+import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { NavLink } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { signIn, getAccount } from '../../common/MetaMask';
+import { signIn, getAccount, signOut } from '../../common/MetaMask';
+import { accountLoginState, noneAccount } from '../../common/constant';
+import BtnLogin from './Header/BtnLogin';
+import BtnLogout from './Header/BtnLogout';
 
 export default function Header() {
+  const [acccountState, setAcccountState] = useState(accountLoginState.notAuth);
+  const [currentAccount, setCurrentAccount] = useState(noneAccount);
+
+  function clearAccount() {
+    console.log('log outtttt....');
+  }
+
+
   useEffect(() => {
     handleAccountAuth();
+    // window.ethereum.on('disconnect', clearAccount);
+
+    // return () => {
+    //   // window.ethereum.off('accountsChanged', accountWasChanged);
+    //   // window.ethereum.off('connect', getAndSetAccount);
+    //   // window.ethereum.off('disconnect', clearAccount);
+    // }
   }, []);
 
   const metaMaskAuth = async () => {
@@ -15,6 +32,10 @@ export default function Header() {
 
     if (!resultSignIn.isSuccess && resultSignIn?.data?.message) {
       toast(resultSignIn.data.message);
+      setAcccountState(accountLoginState.notAuth);
+    } else {
+      setAcccountState(accountLoginState.auth);
+      setCurrentAccount(resultSignIn.data);
     }
   }
 
@@ -23,7 +44,17 @@ export default function Header() {
 
     if (!resultGetAccount.isSuccess && resultGetAccount?.data?.message) {
       toast(resultGetAccount.data.message);
+      setAcccountState(accountLoginState.notAuth);
+    } else {
+      setAcccountState(accountLoginState.auth);
+      setCurrentAccount(resultGetAccount.data);
+      console.log(resultGetAccount.data);
     }
+  }
+
+  const handleAccountSignOut = () => {
+    signOut();
+    setCurrentAccount(noneAccount);
   }
 
   return (
@@ -37,10 +68,8 @@ export default function Header() {
         </div>
         <div className="navbar-nav">
           <div className="nav-item text-nowrap">
-            <button className="nav-link px-3 text-white" onClick={metaMaskAuth}>
-              <Gitlab width={18} height={18} />
-              <span className="align-middle px-1">Sign in</span>
-            </button>
+            <BtnLogin metaMaskAuth={metaMaskAuth} />
+            {acccountState === accountLoginState.auth ? <BtnLogout handleAccountSignOut={handleAccountSignOut} /> : <BtnLogin metaMaskAuth={metaMaskAuth} />}
           </div>
         </div>
       </header>
