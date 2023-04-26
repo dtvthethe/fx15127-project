@@ -104,3 +104,11 @@ export const signOut = async () => {
 // function handleOnDisconnect() {
 //   console.log('log outtttt....');
 // }
+
+export function clearAccount() {
+  console.log('log outtttt....');
+}
+
+export function clearAccount2() {
+  console.log('connect....');
+}

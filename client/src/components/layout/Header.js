@@ -2,23 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { NavLink } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { signIn, getAccount, signOut } from '../../common/MetaMask';
+import { signIn, getAccount, signOut, clearAccount, clearAccount2 } from '../../common/MetaMask';
 import { accountLoginState, noneAccount } from '../../common/constant';
 import BtnLogin from './Header/BtnLogin';
 import BtnLogout from './Header/BtnLogout';
 
 export default function Header() {
-  const [acccountState, setAcccountState] = useState(accountLoginState.notAuth);
   const [currentAccount, setCurrentAccount] = useState(noneAccount);
 
-  function clearAccount() {
-    console.log('log outtttt....');
-  }
+ 
 
 
   useEffect(() => {
     handleAccountAuth();
-    // window.ethereum.on('disconnect', clearAccount);
+    window.ethereum.on('disconnect', clearAccount);
+    window.ethereum.on('connect', clearAccount2);
 
     // return () => {
     //   // window.ethereum.off('accountsChanged', accountWasChanged);
@@ -32,9 +30,7 @@ export default function Header() {
 
     if (!resultSignIn.isSuccess && resultSignIn?.data?.message) {
       toast(resultSignIn.data.message);
-      setAcccountState(accountLoginState.notAuth);
     } else {
-      setAcccountState(accountLoginState.auth);
       setCurrentAccount(resultSignIn.data);
     }
   }
@@ -44,17 +40,42 @@ export default function Header() {
 
     if (!resultGetAccount.isSuccess && resultGetAccount?.data?.message) {
       toast(resultGetAccount.data.message);
-      setAcccountState(accountLoginState.notAuth);
     } else {
-      setAcccountState(accountLoginState.auth);
       setCurrentAccount(resultGetAccount.data);
       console.log(resultGetAccount.data);
     }
   }
 
-  const handleAccountSignOut = () => {
-    signOut();
-    setCurrentAccount(noneAccount);
+  const handleAccountSignOut = async () => {
+    // signOut();
+    // setCurrentAccount(noneAccount);
+
+    // await window.ethereum.request({
+    //     method: "eth_requestAccounts",
+    //     params: [{eth_accounts: {}}]
+    // });
+
+
+    // const walletAddress = await window.ethereum.request({
+    //   method: "eth_requestAccounts",
+    //   params: [
+    //     {
+    //       eth_accounts: {}
+    //     }
+    //   ]
+    // });
+
+    // if (!isReturningUser) {
+    // // Runs only they are brand new, or have hit the disconnect button
+
+    // }
+    // const accounts = await window.ethereum.request({ method: 'eth_disconnect' });
+console.log(currentAccount, noneAccount, currentAccount === noneAccount);
+
+    // const account = accounts[0]
+
+
+    // console.log(permissions);
   }
 
   return (
@@ -69,7 +90,7 @@ export default function Header() {
         <div className="navbar-nav">
           <div className="nav-item text-nowrap">
             <BtnLogin metaMaskAuth={metaMaskAuth} />
-            {acccountState === accountLoginState.auth ? <BtnLogout handleAccountSignOut={handleAccountSignOut} /> : <BtnLogin metaMaskAuth={metaMaskAuth} />}
+            <BtnLogout handleAccountSignOut={handleAccountSignOut} />
           </div>
         </div>
       </header>
