@@ -1,3 +1,7 @@
+export const noneAccount = '0x0';
+
+export const networkHex = ['0x1', '0x5', '0x539'];
+
 export const URL = {
     user: {
         session : {
@@ -28,3 +32,8 @@ export const detailUrlStr = (page, id) => {
             return '/';
     }
 };
+
+export const accountLoginState = {
+    notAuth: 0,
+    auth: 1,
+}
