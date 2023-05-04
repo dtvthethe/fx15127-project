@@ -18,6 +18,7 @@ export default function MyRouter() {
   return (
     <Routes>
       <Route path="/admin" element={<AdminLayout />}>
+        <Route path="" element={<AdminParticipant />} />
         <Route path={URL.admin.participant.list} element={<AdminParticipant />} />
         <Route path={URL.admin.session.list} element={<AdminSession />} />
         <Route path={URL.admin.session.create} element={<SessionCreate />} />

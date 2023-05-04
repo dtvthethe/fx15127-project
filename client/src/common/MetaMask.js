@@ -1,25 +1,15 @@
-import { toast } from "react-toastify";
 import { networkHex } from "./constant";
+import { Result, failResult } from "./result";
 
 
-// login
 
-// logout
 
 // register
 
 // check is admin
 
-// Result object
-export class Result {
-  constructor(isSuccess = false, data = null) {
-    this.isSuccess = isSuccess;
-    this.data = data;
-  }
-}
-
 // Check MetaMask installed
-export const isMetaMaskInstalled = () => {
+const isMetaMaskInstalled = () => {
   if (typeof window.ethereum == 'undefined') {
     return false;
   }
@@ -28,31 +18,25 @@ export const isMetaMaskInstalled = () => {
 }
 
 // Check user's network:
-export const isValidNetwork = async () => {
+const isValidNetwork = async () => {
   try {
     const chainId = await window.ethereum.request({ method: 'eth_chainId' });
 
     return networkHex.includes(chainId);
   } catch (error) {
-    console.log(error);
+    return false;
   }
-
-  return false;
 }
 
 // Get account from MetaMask
 export const signIn = async () => {
   try {
     if (!isMetaMaskInstalled()) {
-      toast('Please install MetaMask extension!');
-
-      return new Result();
+      return failResult('Please install MetaMask extension!');
     }
 
     if (!isValidNetwork()) {
-      toast('This app can\'t work on this network!');
-
-      return new Result();
+      return failResult('This app only work on test networks: Goerli, Ethereum, Ganache Localhost');
     }
 
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -61,10 +45,9 @@ export const signIn = async () => {
   } catch (error) {
     return new Result(false, error);
   }
-
-  return new Result();
 }
 
+// Get current account auth.
 export const getAccount = async () => {
   try {
     if (!isMetaMaskInstalled()) {
@@ -72,9 +55,7 @@ export const getAccount = async () => {
     }
 
     if (!isValidNetwork()) {
-      toast('This app can\'t work on this network!');
-
-      return new Result();
+      return failResult('This app only work on test networks: Goerli, Ethereum, Ganache Localhost');
     }
 
     const accounts = await window.ethereum.request({ method: 'eth_accounts' });
@@ -83,11 +64,51 @@ export const getAccount = async () => {
   } catch (error) {
     return new Result(false, error);
   }
-
-  return new Result();
 }
 
+export const signOut = async () => {
+  console.log('dd');
+  try {
+    if (!isMetaMaskInstalled()) {
+      return failResult('Please install MetaMask extension!');
+    }
 
-/**
- * state: sign in, sign out, sign up
- */
+    if (!isValidNetwork()) {
+      return failResult('This app only work on test networks: Goerli, Ethereum, Ganache Localhost');
+    }
+
+    await window.ethereum.disconnect();
+// console.log(accounts);
+    return new Result(true);
+  } catch (error) {
+    console.log(error);
+    return new Result(false, error);
+  }
+
+  // if (window.ethereum && window.ethereum.disconnect) {
+  //   window.ethereum.disconnect()
+  //     .then(() => {
+  //       console.log('Đóng kết nối với MetaMask thành công');
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // } else {
+  //   console.log('Phương thức disconnect không được hỗ trợ trên MetaMask hiện tại');
+  // }
+
+}
+
+// window.ethereum.on('disconnect', handleOnDisconnect);
+
+// function handleOnDisconnect() {
+//   console.log('log outtttt....');
+// }
+
+export function clearAccount() {
+  console.log('log outtttt....');
+}
+
+export function clearAccount2() {
+  console.log('connect....');
+}
