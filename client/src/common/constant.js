@@ -37,3 +37,5 @@ export const accountLoginState = {
     notAuth: 0,
     auth: 1,
 }
+
+export const LOGIN_KEY_STORAGE = 'meta_login_account';

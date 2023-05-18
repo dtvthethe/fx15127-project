@@ -1,32 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { signIn, getAccount, signOut, clearAccount, clearAccount2 } from '../../common/MetaMask';
-import { accountLoginState, noneAccount } from '../../common/constant';
+import { getCurrentAccountLogined, logIn, logOut } from '../../common/MetaMask';
 import BtnLogin from './Header/BtnLogin';
 import BtnLogout from './Header/BtnLogout';
 
 export default function Header() {
-  const [currentAccount, setCurrentAccount] = useState(noneAccount);
-
- 
-
+  const [currentAccount, setCurrentAccount] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    handleAccountAuth();
-    window.ethereum.on('disconnect', clearAccount);
-    window.ethereum.on('connect', clearAccount2);
-
-    // return () => {
-    //   // window.ethereum.off('accountsChanged', accountWasChanged);
-    //   // window.ethereum.off('connect', getAndSetAccount);
-    //   // window.ethereum.off('disconnect', clearAccount);
-    // }
+    getCurrentAccountAuth();
   }, []);
 
-  const metaMaskAuth = async () => {
-    const resultSignIn = await signIn();
+  // Get current account logined.
+  const getCurrentAccountAuth = () => {
+    const resultGetAccount = getCurrentAccountLogined();
+
+    if (!resultGetAccount.isSuccess && resultGetAccount?.data?.message) {
+      toast(resultGetAccount.data.message);
+    } else {
+      if (resultGetAccount.data) {
+        setCurrentAccount(resultGetAccount.data);
+      }
+    }
+  }
+
+  // Login
+  const metaMaskLogin = async () => {
+    const resultSignIn = await logIn();
 
     if (!resultSignIn.isSuccess && resultSignIn?.data?.message) {
       toast(resultSignIn.data.message);
@@ -35,47 +38,11 @@ export default function Header() {
     }
   }
 
-  const handleAccountAuth = async () => {
-    const resultGetAccount = await getAccount();
-
-    if (!resultGetAccount.isSuccess && resultGetAccount?.data?.message) {
-      toast(resultGetAccount.data.message);
-    } else {
-      setCurrentAccount(resultGetAccount.data);
-      console.log(resultGetAccount.data);
-    }
-  }
-
-  const handleAccountSignOut = async () => {
-    // signOut();
-    // setCurrentAccount(noneAccount);
-
-    // await window.ethereum.request({
-    //     method: "eth_requestAccounts",
-    //     params: [{eth_accounts: {}}]
-    // });
-
-
-    // const walletAddress = await window.ethereum.request({
-    //   method: "eth_requestAccounts",
-    //   params: [
-    //     {
-    //       eth_accounts: {}
-    //     }
-    //   ]
-    // });
-
-    // if (!isReturningUser) {
-    // // Runs only they are brand new, or have hit the disconnect button
-
-    // }
-    // const accounts = await window.ethereum.request({ method: 'eth_disconnect' });
-console.log(currentAccount, noneAccount, currentAccount === noneAccount);
-
-    // const account = accounts[0]
-
-
-    // console.log(permissions);
+  // logout
+  const logout = async () => {
+    logOut();
+    setCurrentAccount(null);
+    navigate('/');
   }
 
   return (
@@ -89,8 +56,11 @@ console.log(currentAccount, noneAccount, currentAccount === noneAccount);
         </div>
         <div className="navbar-nav">
           <div className="nav-item text-nowrap">
-            <BtnLogin metaMaskAuth={metaMaskAuth} />
-            <BtnLogout handleAccountSignOut={handleAccountSignOut} />
+            {
+              currentAccount
+                ? <BtnLogout handleAccountSignOut={logout} />
+                : <BtnLogin metaMaskAuth={metaMaskLogin} />
+            }
           </div>
         </div>
       </header>
