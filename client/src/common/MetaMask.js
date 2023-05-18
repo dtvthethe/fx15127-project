@@ -81,3 +81,18 @@ export const getCurrentAccountLogined = () => {
     return new Result(false, error);
   }
 }
+
+export const getCurrentAccountLoginedV2 = async () => {
+  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+
+  if (accounts[0]) {
+    localStorage.setItem(LOGIN_KEY_STORAGE, accounts[0]);
+  } else {
+    localStorage.removeItem(LOGIN_KEY_STORAGE);
+    window.location.href = '/';
+  }
+}
+
+window.ethereum.on('accountsChanged', (error) => {
+  getCurrentAccountLoginedV2();
+});
