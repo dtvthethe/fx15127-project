@@ -12,22 +12,22 @@ import SessionOnTime from '../../pages/user/session/OnTime';
 import SessionClosed from '../../pages/user/session/Closed';
 import ClientLayout from '../layout/ClientLayout';
 import Detail from '../../pages/user/session/Detail';
-
+import AuthMiddleware from '../../middleware/AuthMiddleware';
 
 export default function MyRouter() {
   return (
     <Routes>
       <Route path="/admin" element={<AdminLayout />}>
-        <Route path="" element={<AdminParticipant />} />
-        <Route path={URL.admin.participant.list} element={<AdminParticipant />} />
-        <Route path={URL.admin.session.list} element={<AdminSession />} />
-        <Route path={URL.admin.session.create} element={<SessionCreate />} />
+        <Route path="" element={<AuthMiddleware><AdminParticipant /></AuthMiddleware>} />
+        <Route path={URL.admin.participant.list} element={<AuthMiddleware><AdminParticipant /></AuthMiddleware>} />
+        <Route path={URL.admin.session.list} element={<AuthMiddleware><AdminSession /></AuthMiddleware>} />
+        <Route path={URL.admin.session.create} element={<AuthMiddleware><SessionCreate /></AuthMiddleware>} />
       </Route>
       <Route path="/" element={<UserLayout />}>
-        <Route path={URL.user.session.onTime} element={<SessionOnTime />} />
-        <Route path={URL.user.session.closed} element={<SessionClosed />} />
-        <Route path={URL.user.session.onTimeDetail} element={<Detail />} />
-        <Route path={URL.user.session.closedDetail} element={<Detail />} />
+        <Route path={URL.user.session.onTime} element={<AuthMiddleware><SessionOnTime /></AuthMiddleware>} />
+        <Route path={URL.user.session.closed} element={<AuthMiddleware><SessionClosed /></AuthMiddleware>} />
+        <Route path={URL.user.session.onTimeDetail} element={<AuthMiddleware><Detail /></AuthMiddleware>} />
+        <Route path={URL.user.session.closedDetail} element={<AuthMiddleware><Detail /></AuthMiddleware>} />
       </Route>
       <Route path="/" element={<ClientLayout />}>
         <Route index element={<Default />} />
