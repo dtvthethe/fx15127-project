@@ -8,7 +8,7 @@ export const URL = {
             onTime: '/on-time',
             closed: '/closed',
             onTimeDetail: '/on-time/:id',
-            closedDetail: '/closed/:id',
+            closedDetail: '/closed/:id'
         }
     },
     admin: {
@@ -19,6 +19,9 @@ export const URL = {
             list: '/admin/sessions',
             create: '/admin/sessions/create'
         }
+    },
+    guest: {
+        register: '/register'
     }
 };
 

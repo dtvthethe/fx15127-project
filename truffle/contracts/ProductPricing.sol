@@ -18,6 +18,10 @@ contract ProductPricing {
     owner = msg.sender;
   }
 
+  function getOwner() public view returns(address) {
+    return owner;
+  }
+
   function getParticipants() public view returns(Participant[] memory) {
     return participants;
   }

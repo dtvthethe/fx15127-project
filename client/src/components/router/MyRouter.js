@@ -13,6 +13,7 @@ import SessionClosed from '../../pages/user/session/Closed';
 import ClientLayout from '../layout/ClientLayout';
 import Detail from '../../pages/user/session/Detail';
 import AuthMiddleware from '../../middleware/AuthMiddleware';
+import SignUp from '../../pages/account/SignUp';
 
 export default function MyRouter() {
   return (
@@ -31,6 +32,7 @@ export default function MyRouter() {
       </Route>
       <Route path="/" element={<ClientLayout />}>
         <Route index element={<Default />} />
+        <Route path={URL.guest.register} element={<SignUp />} />
       </Route>
       <Route path="*" element={<ErrorPage />} />
     </Routes>
