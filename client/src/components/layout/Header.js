@@ -5,10 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getCurrentAccountLogined, logIn, logOut } from '../../common/MetaMask';
 import BtnLogin from './Header/BtnLogin';
 import BtnLogout from './Header/BtnLogout';
+import useEth from "../../contexts/EthContext/useEth";
 
 export default function Header() {
   const [currentAccount, setCurrentAccount] = useState(null);
   const navigate = useNavigate();
+  const {state : { contract, accounts }} = useEth();
 
   useEffect(() => {
     getCurrentAccountAuth();
@@ -35,8 +37,22 @@ export default function Header() {
       toast(resultSignIn.data.message);
     } else {
       setCurrentAccount(resultSignIn.data);
-      // const owner = u
+      // const owner = await contract.methods.getOwner().call({from: accounts[0]});
+      // console.log(owner, accounts[0]);
       // MYTODO: neu la admin or user  thi cho ra / , neu la lan dau tien dang nhap thi cho ra "/register"
+      try {
+        const userInfo = await contract.methods.getParticipant(accounts[0]).call();
+      } catch (err) {
+        const errorMessge = err.message;
+        const error = errorMessge.replace('Internal JSON-RPC error.', '');
+        const errorJson = JSON.parse(error);
+
+        if (errorJson.code == -32000) {
+          navigate('/register');
+        }
+      }
+
+     
 
     }
   }
