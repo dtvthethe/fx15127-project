@@ -35,6 +35,9 @@ export default function Header() {
       toast(resultSignIn.data.message);
     } else {
       setCurrentAccount(resultSignIn.data);
+      // const owner = u
+      // MYTODO: neu la admin or user  thi cho ra / , neu la lan dau tien dang nhap thi cho ra "/register"
+
     }
   }
 
