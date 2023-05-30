@@ -69,7 +69,8 @@ export const getCurrentAccountLogined = () => {
     }
 
     // const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-    // // TODO: login nhieu account thi key local storage ko dung
+    // // MYTODO: login nhieu account thi key local storage ko dung
+    // // MYTODO: meta mask tự đòi login 
     // if (accounts) {
     //   account = localStorage.getItem(LOGIN_KEY_STORAGE);
     // }

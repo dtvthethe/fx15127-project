@@ -42,7 +42,7 @@
  */
 
 require('dotenv').config();
-const { HOST, PORT, DEPLOY_FROM_ADDR, MNEMONIC, GOERLI_MNEMONIC, GOERLI_MNEMONIC } = process.env;
+const { HOST, PORT, DEPLOY_FROM_ADDR, MNEMONIC, GOERLI_MNEMONIC } = process.env;
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 

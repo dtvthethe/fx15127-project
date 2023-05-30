@@ -1,0 +1,160 @@
+{
+	"compiler": {
+		"version": "0.8.6+commit.11564f7e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "fullName",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "email",
+								"type": "string"
+							},
+							{
+								"internalType": "bool",
+								"name": "gender",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Participant",
+						"name": "_par",
+						"type": "tuple"
+					}
+				],
+				"name": "addParticipant",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_addr",
+						"type": "address"
+					}
+				],
+				"name": "getParticipant",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "fullName",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "email",
+								"type": "string"
+							},
+							{
+								"internalType": "bool",
+								"name": "gender",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Participant",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getParticipants",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "fullName",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "email",
+								"type": "string"
+							},
+							{
+								"internalType": "bool",
+								"name": "gender",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Participant[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"truffle\\contracts\\ProductPricing.sol": "ProductPricing"
+		},
+		"evmVersion": "berlin",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"truffle\\contracts\\ProductPricing.sol": {
+			"keccak256": "0xed0be381291f69828b2ce71335971f49270783c3cb2a2ef8032dd51be7a56406",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1849332bfb60a291f2e87910e133506c3714f9efcdc4ef1d1053ef24a6e069d4",
+				"dweb:/ipfs/QmZLBy8qaZGMPX6z91UyMJTY4ab2raF6SoizLd3vvAiZff"
+			]
+		}
+	},
+	"version": 1
+}
