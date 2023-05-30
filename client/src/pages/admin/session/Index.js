@@ -47,7 +47,7 @@ export default function Index() {
           </div>
         </form>
       </div>
-      <Link to={URL.admin.session.create} className='btn btn-sm btn-outline-dark'>
+      <Link to={URL.admin.session.create} className='btn btn-sm btn-dark'>
         <Plus className='mt--3' width={18} height={18} />
         Create new Session
       </Link>
