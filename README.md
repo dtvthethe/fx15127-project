@@ -7,6 +7,7 @@ truffle build
 truffle compile
 truffle migrate
 truffle deploy
+truffle test --network test
 ```
 
 3. To deploy on Goerli network

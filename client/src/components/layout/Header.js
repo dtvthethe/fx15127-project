@@ -1,59 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCurrentAccountLogined, logIn, logOut } from '../../common/MetaMask';
 import BtnLogin from './Header/BtnLogin';
 import BtnLogout from './Header/BtnLogout';
-import useEth from "../../contexts/EthContext/useEth";
+import Web3 from 'web3';
 
 export default function Header() {
   const [currentAccount, setCurrentAccount] = useState(null);
-  const navigate = useNavigate();
-  const {state : { contract, accounts }} = useEth();
 
   useEffect(() => {
     getCurrentAccountAuth();
   }, []);
 
   // Get current account logined.
-  const getCurrentAccountAuth = () => {
-    const resultGetAccount = getCurrentAccountLogined();
+  const getCurrentAccountAuth = async () => {
+    const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+    const accounts = await web3.eth.getAccounts();
+    console.log(accounts);
 
-    if (!resultGetAccount.isSuccess && resultGetAccount?.data?.message) {
-      toast(resultGetAccount.data.message);
-    } else {
-      if (resultGetAccount.data) {
-        setCurrentAccount(resultGetAccount.data);
-      }
-    }
+
+    // if (typeof web3.currentProvider.disconnect === 'function') {
+      // const a = await web3.currentProvider.disconnect();
+    // }
+  
+
+    // console.log(a);
+    console.log(typeof web3.currentProvider.disconnect);
+    // const data = getCurrentAccountLogined();
+
+    // if (data.isSuccess) {
+    //   setCurrentAccount(data.data);
+    // } else {
+    //   toast(data.data);
+    //   setCurrentAccount(null);
+    // }
   }
 
   // Login
   const metaMaskLogin = async () => {
-    const resultSignIn = await logIn();
+    const data = await logIn();
 
-    if (!resultSignIn.isSuccess && resultSignIn?.data?.message) {
-      toast(resultSignIn.data.message);
+    if (data.isSuccess) {
+      toast('Loggin success!');
+      setCurrentAccount(data.data);
     } else {
-      setCurrentAccount(resultSignIn.data);
-      // const owner = await contract.methods.getOwner().call({from: accounts[0]});
-      // console.log(owner, accounts[0]);
-      // MYTODO: neu la admin or user  thi cho ra / , neu la lan dau tien dang nhap thi cho ra "/register"
-      try {
-        const userInfo = await contract.methods.getParticipant(accounts[0]).call();
-      } catch (err) {
-        const errorMessge = err.message;
-        const error = errorMessge.replace('Internal JSON-RPC error.', '');
-        const errorJson = JSON.parse(error);
-
-        if (errorJson.code == -32000) {
-          navigate('/register');
-        }
-      }
-
-     
-
+      toast(data.data);
+      setCurrentAccount(null);
     }
   }
 
@@ -61,7 +55,7 @@ export default function Header() {
   const logout = async () => {
     logOut();
     setCurrentAccount(null);
-    navigate('/');
+    window.location.href = "/";
   }
 
   return (

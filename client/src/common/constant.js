@@ -21,7 +21,7 @@ export const URL = {
         }
     },
     guest: {
-        register: '/register'
+        register: '/sign-up'
     }
 };
 

@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Save } from 'react-feather';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import useEth from '../../contexts/EthContext/useEth';
 import { toast } from 'react-toastify';
+import Web3 from 'web3';
 
 
 export default function SignUp() {
-  const { state: { accounts, contract } } = useEth();
 
+  useEffect(() => {
+    initConnect();
+  }, []);
+
+  const initConnect = async () => {
+    const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+    const accounts = await web3.eth.getAccounts();
+
+    if (typeof web3.currentProvider.disconnect === 'function') {
+      web3.currentProvider.disconnect();
+    }
+  }
+
+
+
+
+
+  ////////
   const myFormik = useFormik({
     initialValues: {
       fullName: '',
@@ -21,38 +38,15 @@ export default function SignUp() {
     }),
     onSubmit: async (values) => {
       try {
-        const result = await contract
-          .methods
-          .addParticipant(
-            values.fullName,
-            values.email,
-            values.gender == 1
-          )
-          .send({ from: accounts[0] });
-          toast('Register successfully!');
+        
       } catch (err) {
         console.log(err.message);
       }
     },
   });
 
-  const registUser = async (values) => {
-    const result = await contract
-      .methods
-      .addParticipant([
-        values.fullName,
-        values.email,
-        values.gender
-      ])
-      .send({ from: accounts[0] });
-      
-  }
+  const viewAll = () => {
 
-  const acsac = async () => {
-    const result = await contract
-      .methods
-      .getParticipants().call({ from: accounts[0] });
-    console.log(result);
   }
 
   return (
@@ -108,7 +102,7 @@ export default function SignUp() {
               <Save className='mt--3' width={18} height={18} />
               Register
             </button>
-            <button type="button" className="btn btn-success btn-sm mx-2 px-4" onClick={() => acsac()}>View</button>
+            <button type="button" className="btn btn-success btn-sm mx-2 px-4" onClick={() => viewAll()}>View</button>
           </div>
         </div>
       </form>

@@ -76,6 +76,7 @@ export const getCurrentAccountLogined = () => {
     // }
 
     account = localStorage.getItem(LOGIN_KEY_STORAGE);
+    console.log(account);
 
     return new Result(true, account);
   } catch (error) {

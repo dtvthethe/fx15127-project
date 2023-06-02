@@ -42,7 +42,7 @@
  */
 
 require('dotenv').config();
-const { HOST, PORT, DEPLOY_FROM_ADDR, MNEMONIC, GOERLI_MNEMONIC } = process.env;
+const { HOST, PORT, GOERLI_MNEMONIC } = process.env;
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
@@ -68,9 +68,12 @@ module.exports = {
     development: {
       host: HOST,     // Localhost (default: none)
       port: PORT,            // Standard Ethereum port (default: none)
-      network_id: "*",       // Any network (default: none)
-      from: DEPLOY_FROM_ADDR,
-      provider: () => new HDWalletProvider(MNEMONIC, `http://${HOST}:${PORT}`),
+      network_id: "*"       // Any network (default: none)
+    },
+    test: {
+      host: HOST,     // Localhost (default: none)
+      port: PORT,            // Standard Ethereum port (default: none)
+      network_id: "*"       // Any network (default: none)
     },
     goerli: {
       provider: () => new HDWalletProvider(GOERLI_MNEMONIC, `https://goerli.infura.io/v3/${GOERLI_PROJECT_ID}`),
