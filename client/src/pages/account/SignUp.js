@@ -1,28 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Save } from 'react-feather';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import Web3 from 'web3';
+import useEth from "../../contexts/EthContext/useEth";
 
 
 export default function SignUp() {
+  const { state: { contract, accounts } } = useEth();
 
   useEffect(() => {
-    initConnect();
+    
   }, []);
-
-  const initConnect = async () => {
-    const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
-    const accounts = await web3.eth.getAccounts();
-
-    if (typeof web3.currentProvider.disconnect === 'function') {
-      web3.currentProvider.disconnect();
-    }
-  }
-
-
-
 
 
   ////////
@@ -38,7 +27,9 @@ export default function SignUp() {
     }),
     onSubmit: async (values) => {
       try {
-        
+        const value = await contract.methods.addParticipant([values.fullName, values.email, values.gender]).send({ from: accounts[0] });
+        // setValue(value);
+        console.log(value);
       } catch (err) {
         console.log(err.message);
       }
