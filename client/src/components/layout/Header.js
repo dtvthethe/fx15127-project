@@ -18,7 +18,7 @@ export default function Header() {
   const getCurrentAccountAuth = async () => {
     const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
     const accounts = await web3.eth.getAccounts();
-    console.log(accounts);
+    // console.log(accounts);
 
 
     // if (typeof web3.currentProvider.disconnect === 'function') {
@@ -27,7 +27,7 @@ export default function Header() {
   
 
     // console.log(a);
-    console.log(typeof web3.currentProvider.disconnect);
+    // console.log(typeof web3.currentProvider.disconnect);
     // const data = getCurrentAccountLogined();
 
     // if (data.isSuccess) {
